@@ -26,7 +26,7 @@ routes.get('/reservations/:reservationId', function(request, result) {
     });
 });
 
-routes.put('reservations/:reservationId', function(request, result) {
+routes.put('/reservations/:reservationId', function(request, result) {
     var reservation = request.body;
     reservation.reservationId = request.params.reservationId;
 
@@ -41,5 +41,21 @@ routes.put('reservations/:reservationId', function(request, result) {
         result.send(res);
     });
 });
+
+routes.delete('/reservations/:reservationId', function(request, result){
+    var reservationId = request.params.reservationId;
+
+    resDao.removeBook(reservationId, function(err, res){
+      if(err){
+        console.log(err);
+        result.status(404);
+        result.send(res);
+      }
+      
+      result.status(204);
+      result.send(res);
+    });
+  });
+  
 
 module.exports = routes;

@@ -4,7 +4,7 @@ exports.createTicket = function(ticket, callback) {
     db.beginTransaction(function(err) {
         if(err) callback(err, null);
 
-        db.query('insert into Ticket(departureTime, departureDate, flightNo, reservationId) values(?,?,?,?)', [ticket.departureTime, ticket.departureDate, ticket.flightNo, ticket.reservationId], function(err, res) {
+        db.query('insert into Ticket(reservationId, flightPrice, itineraryId) values(?,?,?)', [ticket.reservationId, ticket.flightPrice, ticket.itineraryId], function(err, res) {
             if(err) {
                 db.rollback(function(err) {
                     callback(err, res);
@@ -22,17 +22,17 @@ exports.getTicket = function(reservationId, callback) {
     db.beginTransaction(function(err) {
         if(err) callback(err, null);
 
-        db.query('select * from Ticket where reservationId',[reservationId], function(err, res) {
+        db.query('select * from Ticket where reservationId = ?',[reservationId], function(err, res) {
             if(err) callback(err, res); 
         });
     });
 };
 
-exports.deleteTicket = function(ticketId, callback) {
+exports.deleteTicket = function(reservationId, ticketId, callback) {
     db.beginTransaction(function(err) {
         if(err)  callback(err, null);
 
-        db.query('delete from Ticket where ticketId = ?', [ticketId], function(err, res) {
+        db.query('delete from Ticket where reservationId = ? and ticketId = ?', [reservationId, ticketId], function(err, res) {
             if(err) {
                 db.rollback(function(err) {
                     callback(err, res);
