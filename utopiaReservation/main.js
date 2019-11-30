@@ -23,9 +23,8 @@ app.use(bodyParser.json());
 //defining routes to controllers
 //everytime you add a new controller, define it here
 //controllers are for defining your endpoints
-app.use(require('./controllers/bookController'));
-
-app.use(require('./controllers/authorController'));
+app.use(require('./controllers/reservationController'));
+app.use(require('./controllers/flightController'));
 
 //start a server on localhost listening on 3000
 app.listen(3000);

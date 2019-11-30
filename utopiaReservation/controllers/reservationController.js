@@ -19,14 +19,27 @@ routes.post('/reservations', function(request, result) {
 routes.get('/reservations/:reservationId', function(request, result) {
     var reservationId = request.params.reservationId;
 
-    resDao.getReservation(function(err, res) {
+    resDao.getReservation(reservationId, function(err, res) {
+        if(err) throw error;
+        result.setHeader('Content-Type', 'application/json');
+        result.send(res);
+    });
+});
+
+routes.put('reservations/:reservationId', function(request, result) {
+    var reservation = request.body;
+    reservation.reservationId = request.params.reservationId;
+
+    resDao.updateReservation(reservation, function(err, res) {
         if(err) {
             console.log(err);
             result.status(404);
             result.send(res);
         }
 
-        result.setHeader('Content-Type', 'application/json');
+        result.status(200);
         result.send(res);
     });
 });
+
+module.exports = routes;

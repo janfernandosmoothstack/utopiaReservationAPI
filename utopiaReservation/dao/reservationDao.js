@@ -19,12 +19,8 @@ exports.createReservation = function(reservation, callback) {
 };
 
 exports.getReservation = function(reservationId, callback) {
-    db.beginTransaction(function(err) {
-        if(err) callback(err, null);
-
-        db.query('select * from Reservation where reservationId = ?',[reservationId], function(err, res) {
-            if(err) callback(err, res); 
-        });
+    db.query('select * from Reservation where reservationId = ?',[reservationId], function(err, res) {
+        callback(err, res); 
     });
 };
 
