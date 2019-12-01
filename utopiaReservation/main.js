@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 //controllers are for defining your endpoints
 app.use(require('./controllers/reservationController'));
 app.use(require('./controllers/flightController'));
+app.use(require('./controllers/ticketController'));
 
 //start a server on localhost listening on 3000
 app.listen(3000);

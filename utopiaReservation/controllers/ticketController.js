@@ -21,10 +21,10 @@ routes.post('/reservations/:reservationId/tickets', function(request, result) {
 routes.get('/reservations/:reservationId/tickets', function(request, result) {
     var reservationId = request.params.reservationId;
 
-    ticketDao.getTicket(reservationId, function(err, res) {
+    ticketDao.getTicket(reservationId, function(err, tickets) {
         if(err) throw error;
         result.setHeader('Content-Type', 'application/json');
-        result.send(res);
+        result.send(tickets);
     });
 });
 

@@ -19,12 +19,8 @@ exports.createTicket = function(ticket, callback) {
 };
 
 exports.getTicket = function(reservationId, callback) {
-    db.beginTransaction(function(err) {
-        if(err) callback(err, null);
-
-        db.query('select * from Ticket where reservationId = ?',[reservationId], function(err, res) {
-            if(err) callback(err, res); 
-        });
+    db.query('select * from Ticket where reservationId = ?',reservationId, function(err, tickets) {
+        callback(err, tickets); 
     });
 };
 

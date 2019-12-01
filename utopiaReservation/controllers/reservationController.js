@@ -3,6 +3,7 @@ var resDao = require('../dao/reservationDao');
 
 routes.post('/reservations', function(request, result) {
     var reservation = request.body;
+    reservation.userId = request.headers.id;
 
     resDao.createReservation(reservation, function(err, res) {
         if(err) {
@@ -15,6 +16,26 @@ routes.post('/reservations', function(request, result) {
         result.send(res);
     });
 });
+
+// router.post('/', (req, res) => {
+//     const { userId, cardNumber, cardType, expirationDate, nameOnCard } = req.body
+  
+//     const query = `INSERT INTO UtopiaAirline.CardDetails (userId, cardNumber, cardType, expirationDate, nameOnCard) VALUES ('${userId}', '${cardNumber}', '${cardType}', '${expirationDate}', '${nameOnCard}')`
+//     db.query(query, (err, results, fields) => {
+//       if (err) {
+//         const response = { data: null, message: err.message, }
+//         res.send(response)
+//       }
+  
+      
+//       const payment = { userId, cardNumber, cardType, expirationDate, nameOnCard }
+//       const response = {
+//         data: payment,
+//         message: `Payment ${nameOnCard} successfully added.`,
+//       }
+//       res.status(201).send(response)
+//     })
+//   })
 
 routes.get('/reservations/:reservationId', function(request, result) {
     var reservationId = request.params.reservationId;
@@ -29,6 +50,7 @@ routes.get('/reservations/:reservationId', function(request, result) {
 routes.put('/reservations/:reservationId', function(request, result) {
     var reservation = request.body;
     reservation.reservationId = request.params.reservationId;
+    reservation.userId = request.headers.id;
 
     resDao.updateReservation(reservation, function(err, res) {
         if(err) {
@@ -45,7 +67,7 @@ routes.put('/reservations/:reservationId', function(request, result) {
 routes.delete('/reservations/:reservationId', function(request, result){
     var reservationId = request.params.reservationId;
 
-    resDao.removeBook(reservationId, function(err, res){
+    resDao.deleteReservation(reservationId, function(err, res){
       if(err){
         console.log(err);
         result.status(404);
