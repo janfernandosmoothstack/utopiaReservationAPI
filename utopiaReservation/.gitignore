@@ -2,4 +2,4 @@
 **/.vscode
 **/dist
 **/package-lock.json
-**/dao/database.js
+**/.env

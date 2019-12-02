@@ -2,6 +2,7 @@ var bodyParser = require('body-parser') //representing data in the form i want t
 var express = require('express'); //it allows us to create a server and to define our rest end points, it has a routing module
 var app = express(); //once imported you must call the constructor
 var cors = require('cors');
+const errorHandler = require('./helpers/errorHandler');
 
 app.use(cors());
 
@@ -24,8 +25,13 @@ app.get('/', (req, res) => {
 app.use(require('./controllers/reservationController'));
 app.use(require('./controllers/flightController'));
 app.use(require('./controllers/ticketController'));
+app.use(errorHandler.notFound);
+app.use(errorHandler.internalServerError);
 
 //error checking
 //serverless logs -f server -t
+
+app.listen(3000);
+console.log("server running");
 
 module.exports = app;

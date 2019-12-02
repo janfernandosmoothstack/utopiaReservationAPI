@@ -145,7 +145,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/reservationAPI/dev/1575242199181-2019-12-01T23:16:39.181Z/reservationAPI.zip"
+          "S3Key": "serverless/reservationAPI/dev/1575306025267-2019-12-02T17:00:25.267Z/reservationAPI.zip"
         },
         "FunctionName": "reservationAPI-dev-server",
         "Handler": "index.server",
@@ -164,14 +164,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "ServerLambdaVersionl8yV5LsC2dpSH9ueo1gg7PLYY4dF6UlJREm125okdNM": {
+    "ServerLambdaVersionXbdpXUB194UE0BRvQ8SOx7EoQHcfGW34q24DFakDME": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ServerLambdaFunction"
         },
-        "CodeSha256": "XbAuhMROsHgkeFQ2jutPA1e4GYR+ZZ3rBt0ZyRkUmNk="
+        "CodeSha256": "X7qVG0NVItrvZXgJWdcR0ecSbN8MMWOqgLXcpbLdevQ="
       }
     },
     "ApiGatewayRestApi": {
@@ -386,7 +386,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1575242196000": {
+    "ApiGatewayDeployment1575305994111": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -448,7 +448,7 @@
     "ServerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ServerLambdaVersionl8yV5LsC2dpSH9ueo1gg7PLYY4dF6UlJREm125okdNM"
+        "Ref": "ServerLambdaVersionXbdpXUB194UE0BRvQ8SOx7EoQHcfGW34q24DFakDME"
       }
     },
     "ServiceEndpoint": {
