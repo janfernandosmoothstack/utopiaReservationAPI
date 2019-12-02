@@ -145,7 +145,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/reservationAPI/dev/1575311020189-2019-12-02T18:23:40.189Z/reservationAPI.zip"
+          "S3Key": "serverless/reservationAPI/dev/1575313316167-2019-12-02T19:01:56.167Z/reservationAPI.zip"
         },
         "FunctionName": "reservationAPI-dev-server",
         "Handler": "index.server",
@@ -386,7 +386,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1575311016622": {
+    "ApiGatewayDeployment1575313313078": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
