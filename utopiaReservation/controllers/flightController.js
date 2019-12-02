@@ -5,7 +5,7 @@ var flightDao = require('../dao/flightDao');
 var itineraryDao = require('../dao/itineraryDao');
 
 //get flight numbers based on departure and arrival airport
-routes.get('/flights/from/:depAirport/to/:arrAirport/on/:depDate', function(request, result) {
+routes.get('/flights/from/:depAirport/to/:arrAirport/on/:depDate', function(request, response) {
     const flightFilter = new Object();
     flightFilter.departureAirport = request.params.depAirport;
     flightFilter.arrivalAirport = request.params.arrAirport;
@@ -13,9 +13,14 @@ routes.get('/flights/from/:depAirport/to/:arrAirport/on/:depDate', function(requ
 
     flightDao.getFlights(flightFilter, function(err, flights) {
         if(err) throw error;
-        result.setHeader('Content-Type', 'application/json');
 
-        result.send(flights);
+        if (flights.length == 0) {
+            const result = {message: "Record not found"};
+            response.status(404).send(result);
+        } else {
+            response.setHeader('Content-Type', 'application/json');
+            response.status(200).send(flights);
+        }
     });
 });
 

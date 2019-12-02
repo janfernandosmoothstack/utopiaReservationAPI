@@ -160,7 +160,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/reservationAPI/dev/1575306025267-2019-12-02T17:00:25.267Z/reservationAPI.zip"
+                "S3Key": "serverless/reservationAPI/dev/1575311020189-2019-12-02T18:23:40.189Z/reservationAPI.zip"
               },
               "FunctionName": "reservationAPI-dev-server",
               "Handler": "index.server",
@@ -179,14 +179,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "ServerLambdaVersionXbdpXUB194UE0BRvQ8SOx7EoQHcfGW34q24DFakDME": {
+          "ServerLambdaVersionHUr89fjA2p2i3reCyx8kAyLCJYkzL1M635po8BeYw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ServerLambdaFunction"
               },
-              "CodeSha256": "X7qVG0NVItrvZXgJWdcR0ecSbN8MMWOqgLXcpbLdevQ="
+              "CodeSha256": "pMh7J+koGh982H5dJ+rN9W7pA3ag1vQohqZgyXxaegw="
             }
           },
           "ApiGatewayRestApi": {
@@ -401,7 +401,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1575305994111": {
+          "ApiGatewayDeployment1575311016622": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -463,7 +463,7 @@
           "ServerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ServerLambdaVersionXbdpXUB194UE0BRvQ8SOx7EoQHcfGW34q24DFakDME"
+              "Ref": "ServerLambdaVersionHUr89fjA2p2i3reCyx8kAyLCJYkzL1M635po8BeYw"
             }
           },
           "ServiceEndpoint": {
@@ -631,7 +631,7 @@
     "artifact": "C:\\Users\\janet\\OneDrive\\Documents\\Smoothstack\\Java DevOps\\UtopiaAirlines\\utopiaReservation\\utopiaReservation\\.serverless\\reservationAPI.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/reservationAPI/dev/1575306025267-2019-12-02T17:00:25.267Z",
+    "artifactDirectoryName": "serverless/reservationAPI/dev/1575311020189-2019-12-02T18:23:40.189Z",
     "artifact": "reservationAPI.zip"
   }
 }

@@ -1,81 +1,65 @@
 var routes = require('express').Router();
 var resDao = require('../dao/reservationDao');
 
-routes.post('/reservations', function(request, result) {
+routes.post('/reservations', function(request, response) {
     var reservation = request.body;
     reservation.userId = request.headers.id;
 
-    resDao.createReservation(reservation, function(err, res) {
+    resDao.createReservation(reservation, function(err, reservationRes) {
         if(err) {
             console.log(err);
-            result.status(400);
-            result.send(res);
+            const result = {message: "Invalid input"};
+            response.status(400).send(result);
         }
 
-        result.status(201);
-        result.send(res);
+        response.status(201).send(reservationRes);
     });
 });
 
-// router.post('/', (req, res) => {
-//     const { userId, cardNumber, cardType, expirationDate, nameOnCard } = req.body
-  
-//     const query = `INSERT INTO UtopiaAirline.CardDetails (userId, cardNumber, cardType, expirationDate, nameOnCard) VALUES ('${userId}', '${cardNumber}', '${cardType}', '${expirationDate}', '${nameOnCard}')`
-//     db.query(query, (err, results, fields) => {
-//       if (err) {
-//         const response = { data: null, message: err.message, }
-//         res.send(response)
-//       }
-  
-      
-//       const payment = { userId, cardNumber, cardType, expirationDate, nameOnCard }
-//       const response = {
-//         data: payment,
-//         message: `Payment ${nameOnCard} successfully added.`,
-//       }
-//       res.status(201).send(response)
-//     })
-//   })
-
-routes.get('/reservations/:reservationId', function(request, result) {
+routes.get('/reservations/:reservationId', function(request, response) {
     var reservationId = request.params.reservationId;
 
-    resDao.getReservation(reservationId, function(err, res) {
+    resDao.getReservation(reservationId, function(err, reservationRes) {
         if(err) throw error;
-        result.setHeader('Content-Type', 'application/json');
-        result.send(res);
+
+        if (reservationRes.length == 0) {
+            const result = {message: "Record not found"};
+            response.status(404).send(result);
+        } else {
+            response.setHeader('Content-Type', 'application/json');
+            response.status(200).send(reservationRes);
+        }
     });
 });
 
-routes.put('/reservations/:reservationId', function(request, result) {
+//add error checking for reservationId, userId
+routes.put('/reservations/:reservationId', function(request, response) {
     var reservation = request.body;
     reservation.reservationId = request.params.reservationId;
     reservation.userId = request.headers.id;
 
-    resDao.updateReservation(reservation, function(err, res) {
+    resDao.updateReservation(reservation, function(err, reservationRes) {
         if(err) {
             console.log(err);
-            result.status(404);
-            result.send(res);
+            response.status(404).send(reservationRes);
         }
 
-        result.status(200);
-        result.send(res);
+        response.status(200).send(reservationRes);
     });
 });
 
-routes.delete('/reservations/:reservationId', function(request, result){
+//add error checing for reservationId
+routes.delete('/reservations/:reservationId', function(request, response){
     var reservationId = request.params.reservationId;
 
-    resDao.deleteReservation(reservationId, function(err, res){
+    resDao.deleteReservation(reservationId, function(err, reservationRes){
       if(err){
         console.log(err);
-        result.status(404);
-        result.send(res);
+        const result = {message: "Record not found"};
+        response.status(404).send(result);
       }
       
-      result.status(204);
-      result.send(res);
+      response.status(204);
     });
   });
   
