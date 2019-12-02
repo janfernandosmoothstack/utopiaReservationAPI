@@ -1,11 +1,11 @@
 var routes = require('express').Router();
 var resDao = require('../dao/reservationDao');
 
-routes.post('/reservations', function(request, response) {
+routes.post('/reservations', (request, response) => {
     var reservation = request.body;
     reservation.userId = request.headers.id;
 
-    resDao.createReservation(reservation, function(err, reservationRes) {
+    resDao.createReservation(reservation, (err, reservationRes) => {
         if(err) {
             console.log(err);
             const result = {message: "Invalid input"};
@@ -16,10 +16,10 @@ routes.post('/reservations', function(request, response) {
     });
 });
 
-routes.get('/reservations/:reservationId', function(request, response) {
+routes.get('/reservations/:reservationId', (request, response) => {
     var reservationId = request.params.reservationId;
 
-    resDao.getReservation(reservationId, function(err, reservationRes) {
+    resDao.getReservation(reservationId, (err, reservationRes) =>{
         if(err) throw error;
 
         if (reservationRes.length == 0) {
@@ -33,12 +33,12 @@ routes.get('/reservations/:reservationId', function(request, response) {
 });
 
 //add error checking for reservationId, userId
-routes.put('/reservations/:reservationId', function(request, response) {
+routes.put('/reservations/:reservationId', (request, response) => {
     var reservation = request.body;
     reservation.reservationId = request.params.reservationId;
     reservation.userId = request.headers.id;
 
-    resDao.updateReservation(reservation, function(err, reservationRes) {
+    resDao.updateReservation(reservation, (err, reservationRes) => {
         if(err) {
             console.log(err);
             response.status(404).send(reservationRes);
@@ -49,10 +49,10 @@ routes.put('/reservations/:reservationId', function(request, response) {
 });
 
 //add error checing for reservationId
-routes.delete('/reservations/:reservationId', function(request, response){
+routes.delete('/reservations/:reservationId', (request, response) => {
     var reservationId = request.params.reservationId;
 
-    resDao.deleteReservation(reservationId, function(err, reservationRes){
+    resDao.deleteReservation(reservationId, (err, reservationRes) => {
       if(err){
         console.log(err);
         const result = {message: "Record not found"};

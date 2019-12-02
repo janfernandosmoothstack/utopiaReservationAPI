@@ -2,7 +2,7 @@ var routes = require('express').Router();
 var ticketDao = require('../dao/ticketDao');
 var itineraryDao = require('../dao/itineraryDao');
 
-routes.post('/reservations/:reservationId/tickets', function (request, response) {
+routes.post('/reservations/:reservationId/tickets', (request, response) => {
   var ticket = request.body;
   ticket.reservationId = request.params.reservationId;
 
@@ -16,7 +16,7 @@ routes.post('/reservations/:reservationId/tickets', function (request, response)
 
   if (ticket.availableSeats > 0) {
 
-    ticketDao.createTicket(ticket, function (err, ticketRes) {
+    ticketDao.createTicket(ticket, (err, ticketRes) => {
       if (err) {
         console.log(err);
         const result = { message: "Invalid input" };
@@ -26,7 +26,7 @@ routes.post('/reservations/:reservationId/tickets', function (request, response)
       //minus the number of available seats on the plane
       ticket.availableSeats = ticket.availableSeats - 1;
 
-      itineraryDao.updateItinerary(ticket.itineraryId, ticket.availableSeats, function (err, itinerary) {
+      itineraryDao.updateItinerary(ticket.itineraryId, ticket.availableSeats, (err, itinerary) => {
           if(err) {
             console.log(err);
             result.status(404);
@@ -42,10 +42,10 @@ routes.post('/reservations/:reservationId/tickets', function (request, response)
   }
 });
 
-routes.get('/reservations/:reservationId/tickets', function (request, response) {
+routes.get('/reservations/:reservationId/tickets', (request, response) => {
   var reservationId = request.params.reservationId;
 
-  ticketDao.getTicket(reservationId, function (err, tickets) {
+  ticketDao.getTicket(reservationId, (err, tickets) => {
     if (err) throw error;
 
     if (tickets.length == 0) {
@@ -59,11 +59,11 @@ routes.get('/reservations/:reservationId/tickets', function (request, response) 
 });
 
 //validate ticket and reservation
-routes.delete('/reservations/:reservationId/tickets/:ticketId', function (request, response) {
+routes.delete('/reservations/:reservationId/tickets/:ticketId', (request, response) => {
   var reservationId = request.params.reservationId;
   var ticketId = request.params.ticketId;
 
-  ticketDao.deleteTicket(reservationId, ticketId, function (err, ticket) {
+  ticketDao.deleteTicket(reservationId, ticketId, (err, ticket) => {
     if (err) {
       console.log(err);
       const result = { message: "Record not found" };
@@ -73,6 +73,5 @@ routes.delete('/reservations/:reservationId/tickets/:ticketId', function (reques
     response.status(204);
   });
 });
-
 
 module.exports = routes;

@@ -3,11 +3,11 @@
 var db = require('./database');
 
 //get this itineraryId from ticket that is chosen
-exports.updateItinerary = function(itineraryId, newAvailSeats, callback) {
+exports.updateItinerary = (itineraryId, newAvailSeats, callback) => {
     db.beginTransaction(function(err) {
         if(err) callback(err, null);
 
-        db.query('update Itinerary set availableSeats = ? where itineraryId = ?', [newAvailSeats, itineraryId], function(err, res) {
+        db.query('update Itinerary set availableSeats = ? where itineraryId = ?', [newAvailSeats, itineraryId], (err, res) => {
             if(err) {
                 db.rollback(function(err) {
                     callback(err, res);

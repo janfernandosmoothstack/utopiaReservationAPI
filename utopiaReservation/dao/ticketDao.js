@@ -1,10 +1,10 @@
 var db = require('./database');
 
-exports.createTicket = function(ticket, callback) {
+exports.createTicket = (ticket, callback) => {
     db.beginTransaction(function(err) {
         if(err) callback(err, null);
 
-        db.query('insert into Ticket(reservationId, flightPrice, itineraryId) values(?,?,?)', [ticket.reservationId, ticket.flightPrice, ticket.itineraryId], function(err, res) {
+        db.query('insert into Ticket(reservationId, flightPrice, itineraryId) values(?,?,?)', [ticket.reservationId, ticket.flightPrice, ticket.itineraryId], (err, res) => {
             if(err) {
                 db.rollback(function(err) {
                     callback(err, res);
@@ -18,17 +18,17 @@ exports.createTicket = function(ticket, callback) {
     });
 };
 
-exports.getTicket = function(reservationId, callback) {
-    db.query('select * from Ticket where reservationId = ?',reservationId, function(err, tickets) {
+exports.getTicket = (reservationId, callback) => {
+    db.query('select * from Ticket where reservationId = ?',reservationId, (err, tickets) => {
         callback(err, tickets); 
     });
 };
 
-exports.deleteTicket = function(reservationId, ticketId, callback) {
+exports.deleteTicket = (reservationId, ticketId, callback) => {
     db.beginTransaction(function(err) {
         if(err)  callback(err, null);
 
-        db.query('delete from Ticket where reservationId = ? and ticketId = ?', [reservationId, ticketId], function(err, res) {
+        db.query('delete from Ticket where reservationId = ? and ticketId = ?', [reservationId, ticketId], (err, res) => {
             if(err) {
                 db.rollback(function(err) {
                     callback(err, res);
