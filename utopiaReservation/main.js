@@ -18,6 +18,12 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to the Reservation Service on AWS Lambda!' });
 });
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 //defining routes to controllers
 //everytime you add a new controller, define it here
 //controllers are for defining your endpoints

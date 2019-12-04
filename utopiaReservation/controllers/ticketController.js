@@ -11,11 +11,10 @@ routes.post('/reservations/:reservationId/tickets', (request, response) => {
     flightPrice
     itineraryId
     availableSeats
-    totalSeats
+    totalTravelers
   */
 
-  if (ticket.availableSeats > 0) {
-
+  for (let i = 0; i < ticket.totalTravelers; i++) {
     ticketDao.createTicket(ticket, (err, ticketRes) => {
       if (err) {
         console.log(err);
@@ -27,19 +26,16 @@ routes.post('/reservations/:reservationId/tickets', (request, response) => {
       ticket.availableSeats = ticket.availableSeats - 1;
 
       itineraryDao.updateItinerary(ticket.itineraryId, ticket.availableSeats, (err, itinerary) => {
-          if(err) {
-            console.log(err);
-            result.status(404);
-          }
+        if (err) {
+          console.log(err);
+          result.status(404);
+        }
       });
-
-      response.status(201).send(ticketRes);
     });
-
-  } else {
-    const result = { message: "No seats available on this flight" };
-    response.status(404).send(result);
   }
+
+  const result = { message: "Tickets created" };
+  response.status(201).send(result);
 });
 
 routes.get('/reservations/:reservationId/tickets', (request, response) => {

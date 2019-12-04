@@ -9,4 +9,9 @@ CONFIG.db_name      = process.env.DB_NAME
 CONFIG.db_user      = process.env.DB_USER
 CONFIG.db_password  = process.env.DB_PASSWORD
 
+//unit testing
+CONFIG.testdb_host  = process.env.TESTDB_HOST
+CONFIG.testdb_user  = process.env.TESTDB_USER
+CONFIG.testdb_password  = process.env.TESTDB_PASSWORD
+
 module.exports = CONFIG

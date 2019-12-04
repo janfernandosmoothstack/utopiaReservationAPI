@@ -1,19 +1,32 @@
 var routes = require('express').Router();
 var resDao = require('../dao/reservationDao');
 
+/* Reservation Object
+    userId - Header
+    status
+    availableSeats
+    totalTravelers
+*/
+
+//check if seats are available before creating reservation
 routes.post('/reservations', (request, response) => {
     var reservation = request.body;
-    reservation.userId = request.headers.id;
+    reservation.userId = request.header('userId');
 
-    resDao.createReservation(reservation, (err, reservationRes) => {
-        if(err) {
-            console.log(err);
-            const result = {message: "Invalid input"};
-            response.status(400).send(result);
-        }
+    if(reservation.availableSeats > 0 && reservation.totalTravelers <= reservation.availableSeats) {
+        resDao.createReservation(reservation, (err, reservationRes) => {
+            if(err) {
+                console.log(err);
+                const result = {message: "Invalid input"};
+                response.status(400).send(result);
+            }
 
-        response.status(201).send(reservationRes);
-    });
+            response.status(201).send(reservationRes);
+        });
+    } else {
+        const result = { message: "Not enough seats are available on this flight" };
+        response.status(404).send(result);
+    }
 });
 
 routes.get('/reservations/:reservationId', (request, response) => {
@@ -36,7 +49,7 @@ routes.get('/reservations/:reservationId', (request, response) => {
 routes.put('/reservations/:reservationId', (request, response) => {
     var reservation = request.body;
     reservation.reservationId = request.params.reservationId;
-    reservation.userId = request.headers.id;
+    reservation.userId = request.header('userId');
 
     resDao.updateReservation(reservation, (err, reservationRes) => {
         if(err) {
@@ -58,8 +71,8 @@ routes.delete('/reservations/:reservationId', (request, response) => {
         const result = {message: "Record not found"};
         response.status(404).send(result);
       }
-      
-      response.status(204);
+      const result = {message: "Record deleted"};
+      response.status(204).send(result);
     });
   });
   

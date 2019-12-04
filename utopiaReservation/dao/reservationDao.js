@@ -28,7 +28,7 @@ exports.updateReservation = (reservation, callback) => {
     db.beginTransaction(function(err) {
         if(err) callback(err, null);
 
-        db.query('update Reservation set userId = ?, status = ?', [reservation.userId, reservation.status], (err, res) => {
+        db.query('update Reservation set userId = ?, status = ? where reservationId = ?', [reservation.userId, reservation.status, reservation.reservationId], (err, res) => {
             if(err) {
                 db.rollback(function(err) {
                     callback(err, res);
