@@ -31,6 +31,7 @@ app.use(function(req, res, next) {
 app.use(require('./controllers/reservationController'));
 app.use(require('./controllers/flightController'));
 app.use(require('./controllers/ticketController'));
+app.use(require('./controllers/airportController'));
 app.use(errorHandler.notFound);
 app.use(errorHandler.internalServerError);
 
