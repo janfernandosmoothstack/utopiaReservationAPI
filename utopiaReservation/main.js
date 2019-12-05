@@ -37,7 +37,7 @@ app.use(errorHandler.internalServerError);
 //error checking
 //serverless logs -f server -t
 
-app.listen(3000);
+app.listen(8000);
 console.log("server running");
 
 module.exports = app;
