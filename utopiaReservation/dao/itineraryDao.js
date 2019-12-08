@@ -20,3 +20,9 @@ exports.updateItinerary = (itineraryId, newAvailSeats, callback) => {
         });
     });
 };
+
+exports.getItinerary = (itineraryId, callback) => {
+    db.query('select * from Itinerary where itineraryId = ?',[itineraryId], (err, res) => {
+        callback(err, res); 
+    });
+};
