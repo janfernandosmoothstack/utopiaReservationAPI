@@ -1,5 +1,5 @@
 'use strict'
-
+//
 var db = require('./database');
 
 //get this itineraryId from ticket that is chosen
