@@ -13,6 +13,8 @@ routes.post('/reservations', (request, response) => {
     var reservation = request.body;
     reservation.userId = request.header('userId');
 
+    
+
     if(reservation.availableSeats > 0 && reservation.totalTravelers <= reservation.availableSeats) {
         resDao.createReservation(reservation, (err, reservationRes) => {
             if(err) {
@@ -62,6 +64,7 @@ routes.put('/reservations/:reservationId', (request, response) => {
 });
 
 //add error checing for reservationId
+//add seats back to tickets
 routes.delete('/reservations/:reservationId', (request, response) => {
     var reservationId = request.params.reservationId;
 

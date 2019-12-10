@@ -23,3 +23,21 @@ routes.post('/users', (request, response) => {
         response.status(201).send(travelerRes);
     });
 });
+
+routes.get('/users', (request, response) => {
+    var userId = request.header('userId');
+
+    userDao.getUser(userId, (err, user) =>{
+        if(err) throw error;
+
+        if (user.length == 0) {
+            const result = {message: "Record not found"};
+            response.status(404).send(result);
+        } else {
+            response.setHeader('Content-Type', 'application/json');
+            response.status(200).send(user);
+        }
+    });
+});
+
+module.exports = routes;
