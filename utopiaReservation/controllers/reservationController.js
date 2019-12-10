@@ -13,7 +13,7 @@ routes.post('/reservations', (request, response) => {
     var reservation = request.body;
     reservation.userId = request.header('userId');
 
-    
+    //
 
     if(reservation.availableSeats > 0 && reservation.totalTravelers <= reservation.availableSeats) {
         resDao.createReservation(reservation, (err, reservationRes) => {
