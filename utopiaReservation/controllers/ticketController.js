@@ -10,9 +10,9 @@ routes.post('/reservations/:reservationId/tickets', (request, response) => {
     reservationId
     flightPrice
     itineraryId
-    availableSeats
     totalTravelers
   */
+ //read available seats
 
   for (let i = 0; i < ticket.totalTravelers; i++) {
     ticketDao.createTicket(ticket, (err, ticketRes) => {

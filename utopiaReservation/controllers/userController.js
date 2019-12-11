@@ -11,7 +11,6 @@ var userDao = require('../dao/userDao');
 
 routes.post('/users', (request, response) => {
     var traveler = request.body;
-    console.log(traveler);
 
     userDao.createUser(traveler, (err, travelerRes) => {
         if (err) {
