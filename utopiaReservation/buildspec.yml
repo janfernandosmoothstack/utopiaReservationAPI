@@ -4,8 +4,9 @@ phases:
   install:
     runtime-versions:
       nodejs: 8.10
-  install:
     commands:
+    - cd utopiaReservation
+    - echo im inside utopia
     - npm install --silent --no-progress -g npm
     - npm install --silent --no-progress -g serverless
   pre_build:
