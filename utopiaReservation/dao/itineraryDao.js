@@ -1,5 +1,5 @@
 'use strict'
-
+//
 var db = require('./database');
 
 //get this itineraryId from ticket that is chosen
@@ -18,5 +18,11 @@ exports.updateItinerary = (itineraryId, newAvailSeats, callback) => {
                 callback(err, res);
             });
         });
+    });
+};
+
+exports.getItinerary = (itineraryId, callback) => {
+    db.query('select * from Itinerary where itineraryId = ?',[itineraryId], (err, res) => {
+        callback(err, res); 
     });
 };

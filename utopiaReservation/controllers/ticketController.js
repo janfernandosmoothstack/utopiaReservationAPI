@@ -10,32 +10,49 @@ routes.post('/reservations/:reservationId/tickets', (request, response) => {
     reservationId
     flightPrice
     itineraryId
-    availableSeats
     totalTravelers
   */
 
-  for (let i = 0; i < ticket.totalTravelers; i++) {
-    ticketDao.createTicket(ticket, (err, ticketRes) => {
-      if (err) {
-        console.log(err);
-        const result = { message: "Invalid input" };
-        response.status(400).send(result);
+  itineraryDao.getItinerary(ticket.itineraryId, (err, itineraryRes) => {
+    if (err) throw error;
+
+    if (itineraryRes.length == 0) {
+      const result = { message: "Record not found" };
+      response.status(404).send(result);
+    } else {
+
+      if (itineraryRes[0].availableSeats > 0 && ticket.totalTravelers <= itineraryRes[0].availableSeats) {
+        
+        for (let i = 0; i < ticket.totalTravelers; i++) {
+          
+          ticketDao.createTicket(ticket, (err, ticketRes) => {
+            if (err) {
+              console.log(err);
+              const result = { message: "Invalid input" };
+              response.status(400).send(result);
+            }
+
+            //minus the number of available seats on the plane
+            itineraryRes[0].availableSeats = itineraryRes[0].availableSeats - 1;
+
+            itineraryDao.updateItinerary(ticket.itineraryId, itineraryRes[0].availableSeats, (err, itinerary) => {
+              if (err) {
+                console.log(err);
+                result.status(404);
+              }
+            });
+          });
+        }
+
+        const result = { message: "Tickets created" };
+        response.status(201).send(result);
+      } else {
+        const result = { message: "Not enough seats are available on this flight" };
+        response.status(404).send(result);
       }
 
-      //minus the number of available seats on the plane
-      ticket.availableSeats = ticket.availableSeats - 1;
-
-      itineraryDao.updateItinerary(ticket.itineraryId, ticket.availableSeats, (err, itinerary) => {
-        if (err) {
-          console.log(err);
-          result.status(404);
-        }
-      });
-    });
-  }
-
-  const result = { message: "Tickets created" };
-  response.status(201).send(result);
+    }
+  });
 });
 
 routes.get('/reservations/:reservationId/tickets', (request, response) => {

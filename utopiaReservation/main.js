@@ -31,13 +31,15 @@ app.use(function(req, res, next) {
 app.use(require('./controllers/reservationController'));
 app.use(require('./controllers/flightController'));
 app.use(require('./controllers/ticketController'));
+app.use(require('./controllers/airportController'));
+app.use(require('./controllers/userController'));
 app.use(errorHandler.notFound);
 app.use(errorHandler.internalServerError);
 
 //error checking
 //serverless logs -f server -t
 
-app.listen(3000);
+app.listen(8000);
 console.log("server running");
 
 module.exports = app;
