@@ -33,6 +33,7 @@ app.use(require('./controllers/flightController'));
 app.use(require('./controllers/ticketController'));
 app.use(require('./controllers/airportController'));
 app.use(require('./controllers/userController'));
+app.use(require('./controllers/itineraryController'));
 app.use(errorHandler.notFound);
 app.use(errorHandler.internalServerError);
 
