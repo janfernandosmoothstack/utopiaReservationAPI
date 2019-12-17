@@ -3,6 +3,19 @@
 var routes = require('express').Router();
 var flightDao = require('../dao/flightDao');
 
+/* Flight Object in flights array
+    flightNo - Flights
+    totalSeats - Flights
+    departureAirport - Flights
+    arrivalAirport - Flights
+    departureTime - Flights
+    arrivalTime - Flights
+    availableSeats - Itinerary
+    departureDate - Itinerary
+    itineraryId - Itinerary
+    flightPrice - Ticket
+ */
+
 //get flight numbers based on departure and arrival airport
 routes.get('/flights/from/:depAirport/to/:arrAirport/on/:depDate', (request, response) => {
     const flightFilter = new Object();
@@ -35,10 +48,6 @@ routes.get('/flights/from/:depAirport/to/:arrAirport/on/:depDate', (request, res
     arrivalAirport - Flights
     departureTime - Flights
     arrivalTime - Flights
-    availableSeats - Itinerary
-    departureDate - Itinerary
-    itineraryId - Itinerary
-    flightPrice - Ticket
  */
 
 routes.get('/flights/:flightNo', (request, response) => {
