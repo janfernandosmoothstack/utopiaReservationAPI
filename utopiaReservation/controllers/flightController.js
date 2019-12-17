@@ -41,4 +41,20 @@ routes.get('/flights/from/:depAirport/to/:arrAirport/on/:depDate', (request, res
     flightPrice - Ticket
  */
 
+routes.get('/flights/:flightNo', (request, response) => {
+    var flightNo = request.params.flightNo;
+
+    flightDao.getFlightByNo(flightNo, (err, flightRes) =>{
+        if(err) throw error;
+
+        if (flightRes.length == 0) {
+            const result = {message: "Record not found"};
+            response.status(404).send(result);
+        } else {
+            response.setHeader('Content-Type', 'application/json');
+            response.status(200).send(flightRes);
+        }
+    });
+});
+
 module.exports = routes;

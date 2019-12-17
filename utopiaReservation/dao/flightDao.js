@@ -14,3 +14,9 @@ exports.getFlights = (flightFilter, callback) => {
             callback(err, flights); 
     });
 };
+
+exports.getFlightByNo = (flightNo, callback) => {
+    db.query('select * from Flights where flightNo = ?',[flightNo], (err, res) => {
+        callback(err, res); 
+    });
+};
