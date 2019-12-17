@@ -5,3 +5,9 @@ exports.getAllAirports = function(cb){
         cb(err, result);
     });
 };
+
+exports.getAirport = (departureAirport, arrivalAirport, callback) => {
+    db.query('select * from Airport where airportCode = ? or airportCode = ?',[arrivalAirport, departureAirport], (err, res) => {
+        callback(err, res); 
+    });
+};
